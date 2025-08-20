@@ -11,6 +11,16 @@ function loadStudents() {
 function saveStudents(arr) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
 }
+$(function () {
+    function adjustOffsets() {
+        var nh = $('.navbar.fixed-top').outerHeight() || 0;
+        var fh = $('footer.fixed-bottom').outerHeight() || 0;
+        $('body').css('padding-top', nh + 'px');
+        $('body').css('padding-bottom', fh + 'px');
+    }
+    adjustOffsets();
+    $(window).on('resize', adjustOffsets);
+});
 
 $(function () {
     var students = loadStudents();
