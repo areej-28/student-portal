@@ -45,6 +45,7 @@
           <li class="nav-item"><a class="nav-link active" href="../html_files/login.html">LogIn</a></li>
           <li class="nav-item"><a class="nav-link active" href="../html_files/form.html">Add Student</a></li>
           <li class="nav-item"><a class="nav-link active" href="../html_files/contact.html">Contact Us</a></li>
+          <li class="nav-item"><a class="nav-link active" href="../html_files/signup.html">SignUp</a></li>
         </ul>
       </div>
     </div>
@@ -52,7 +53,10 @@
 
   <main class="login-wrap">
     <div class="login-card">
-      <h3 class="text-center mb-4">Login</h3>
+      <h3 class="text-center mb-3">Login</h3>
+
+      <div id="flash" class="alert alert-success py-2 d-none" role="alert"></div>
+
       <form id="loginForm">
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
@@ -64,7 +68,10 @@
         </div>
         <button type="submit" class="btn btn-purple w-100">Login</button>
       </form>
-      <p class="text-center mt-3">Don't have an account? <a href="#">Register</a></p>
+
+      <p class="text-center mt-3">Don't have an account?
+        <a href="../html_files/signup.html">Register</a>
+      </p>
     </div>
   </main>
 
