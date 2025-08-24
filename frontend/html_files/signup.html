@@ -44,8 +44,6 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-
-    <!-- Nav -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark"
         style="background-image:linear-gradient(90deg,#4c1d95,#a78bfa);">
         <div class="container">
@@ -59,7 +57,8 @@
                     <li class="nav-item"><a class="nav-link active" href="../html_files/about.html">About</a></li>
                     <li class="nav-item"><a class="nav-link active" href="../html_files/login.html">LogIn</a></li>
                     <li class="nav-item"><a class="nav-link active" href="../html_files/form.html">Add Student</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="../html_files/contact.html">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="../html_files/contact.html">Contact Us</a>
+                    </li>
                     <li class="nav-item"><a class="nav-link active" href="../html_files/signup.html">SignUp</a></li>
                 </ul>
             </div>
@@ -69,24 +68,20 @@
     <main class="signup-wrap">
         <div class="signup-card">
             <h3 class="text-center mb-3">Create an account</h3>
-
             <form id="signupForm" novalidate>
                 <div class="mb-3">
                     <label for="su_username" class="form-label">Username</label>
-                    <input type="text" id="su_username" class="form-control" placeholder="e.g. aj_user" required>
+                    <input type="text" id="su_username" class="form-control" placeholder="e.g. use_user" required>
                 </div>
-
                 <div class="mb-3">
                     <label for="su_password" class="form-label">Password</label>
                     <input type="password" id="su_password" class="form-control" placeholder="at least 8 characters"
                         required>
                 </div>
-
                 <div class="mb-3">
                     <label for="su_confirm" class="form-label">Confirm Password</label>
                     <input type="password" id="su_confirm" class="form-control" required>
                 </div>
-
                 <button class="btn btn-purple w-100">Sign Up</button>
                 <p class="mt-3 mb-0 text-center">
                     Already have an account? <a href="../html_files/login.html">Log in</a>
