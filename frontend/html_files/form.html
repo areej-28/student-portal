@@ -1,111 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Add Student</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        .btn-purple {
-            background-color: #6f42c1;
-            border-color: #6f42c1;
-            color: #fff;
-        }
-
-        .btn-purple:hover {
-            background-color: #5b36a5;
-            border-color: #5b36a5;
-            color: #fff;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Find a Student</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .btn-purple{background:#6f42c1;border-color:#6f42c1;color:#fff}
+    .btn-purple:hover{background:#5b36a5;border-color:#5b36a5;color:#fff}
+  </style>
 </head>
-
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <!-- Basic Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark"
-        style="background-image:linear-gradient(90deg,#4c1d95,#a78bfa);">
-        <div class="container">
-            <a class="navbar-brand" href="../html_files/home.html">Student Portal</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div id="nav" class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="../html_files/home.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="../html_files/about.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="../html_files/login.html">LogIn</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link active" href="../html_files/form.html">Add Student</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="../html_files/contact.html">Contact Us</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link active" href="../html_files/signup.html">SignUp</a></li>
-                </ul>
-            </div>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark"
+       style="background-image:linear-gradient(90deg,#4c1d95,#a78bfa);">
+    <div class="container">
+      <a class="navbar-brand" href="../html_files/home.html">Student Portal</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="nav" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../html_files/home.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="../html_files/about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="../html_files/login.html">LogIn</a></li>
+          <li class="nav-item"><a class="nav-link" href="../html_files/signup.html">SignUp</a></li>
+          <li class="nav-item"><a class="nav-link" href="../html_files/student.html">My Page</a></li>
+          <li class="nav-item"><a class="nav-link  active" href="../html_files/form.html">Search Students</a></li>
+          <li class="nav-item"><a class="nav-link" href="../html_files/contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4 flex-grow-1">
+    <h1 class="mb-4">Find a Student</h1>
+
+    <!-- Search by Student ID -->
+    <form id="searchForm" class="row g-3" novalidate>
+      <div class="col-12">
+        <label for="queryId" class="form-label">Student ID</label>
+        <input id="queryId" type="text" class="form-control"
+               placeholder="e.g., SID-20**-****" required />
+        <div class="invalid-feedback">Please enter a Student ID (e.g., SID-20**-****).</div>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-purple btn-sm">Search</button>
+        <button id="resetBtn" type="button" class="btn btn-outline-secondary btn-sm ms-2">Reset</button>
+      </div>
+    </form>
+
+    <!-- to search results -->
+    <div id="resultWrap" class="card mt-4 d-none">
+      <div class="card-header">Result</div>
+      <div class="card-body" id="resultBody">
+      </div>
+    </div>
+
+    <!-- Saved students list and will filter them after search -->
+    <div class="card mt-4">
+      <div class="card-header">Saved Students</div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-striped mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>#</th>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Major</th>
+                <th>Semester</th>
+                <th>Courses</th>
+              </tr>
+            </thead>
+            <tbody id="studentsBody"></tbody>
+          </table>
         </div>
-    </nav>
+      </div>
+    </div>
+  </main>
 
-    <main class="container py-4 flex-grow-1">
-        <h1 class="mb-4">Create a Student</h1>
+  <footer class="text-center text-white py-3 fixed-bottom"
+          style="background-image:linear-gradient(90deg,#4c1d95,#a78bfa);">
+    <small>&copy; 2025 Student Portal | All rights reserved</small>
+  </footer>
 
-        <form id="studentForm" class="needs-validation" novalidate>
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <label for="name" class="form-label">Name</label>
-                    <input id="name" type="text" class="form-control" placeholder="Enter full name" required />
-                    <div class="invalid-feedback">Name is required.</div>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="email" class="form-label">Email</label>
-                    <input id="email" type="email" class="form-control" placeholder="name@example.com" required />
-                    <div class="invalid-feedback">Enter a valid email.</div>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="age" class="form-label">Age</label>
-                    <input id="age" type="number" class="form-control" placeholder="18" min="1" max="120" required />
-                    <div class="invalid-feedback">Enter a valid age (1–120).</div>
-                </div>
-            </div>
-
-            <div class="mt-4">
-                <button type="submit" class="btn btn-purple btn-sm">Submit</button>
-            </div>
-        </form>
-
-        <div id="msg" class="alert alert-success mt-3 d-none">Student saved.</div>
-
-        <div class="card mt-4">
-            <div class="card-header">Saved Students</div>
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-striped mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Age</th>
-                            </tr>
-                        </thead>
-                        <tbody id="studentsBody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!--Basic footer-->
-    <footer class="text-center text-white py-3 fixed-bottom"
-        style="background-image:linear-gradient(90deg,#4c1d95,#a78bfa);">
-        <small>&copy; 2025 Student Portal | All rights reserved</small>
-    </footer>
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js_files/script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js_files/script.js"></script>
+  <script src="../js_files/common.js"></script>
 </body>
-
 </html>

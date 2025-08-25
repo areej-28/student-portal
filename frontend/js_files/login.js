@@ -1,72 +1,22 @@
-function getUsers() {
-  var raw = localStorage.getItem('users');
-  try { return raw ? JSON.parse(raw) : []; } catch (e) { return []; }
-}
-function saveUsers(arr) {
-  localStorage.setItem('users', JSON.stringify(arr));
-}
-function findUser(username) {
-  var list = getUsers();
-  for (var i = 0; i < list.length; i++) {
-    if (list[i].username === username) return list[i];
-  }
-  return null;
-}
+function getUsers(){try{return JSON.parse(localStorage.getItem('users'))||[];}catch(e){return[];}}
 
-(function migrateSingleAccount() {
-  var old = localStorage.getItem('authUser');
-  if (!old) return;
-  try {
-    var one = JSON.parse(old); 
-    if (one && one.username) {
-      var users = getUsers();
-      if (!findUser(one.username)) {
-        users.push({ username: one.username, password: one.password });
-        saveUsers(users);
-      }
-    }
-  } catch (e) { /* ignore */ }
-  localStorage.removeItem('authUser');
-})();
+$(function(){
+  var flash=localStorage.getItem('flash');
+  if(flash){$('#flash').removeClass('d-none').text(flash);localStorage.removeItem('flash')}
+  else{$('#flash').addClass('d-none').text('')}
 
-$(function () {
-  var msg = localStorage.getItem('flash');
-  if (msg) {
-    $('#flash').text(msg).removeClass('d-none');
-    localStorage.removeItem('flash');
-  }
-
-  $('#loginForm').on('submit', function (e) {
+  $('#loginForm').on('submit',function(e){
     e.preventDefault();
+    var sid=$('#sid').val().trim();
+    var pw=$('#password').val().trim();
+    if(!sid||!pw){alert('Please fill both fields');return;}
 
-    var u = $('#username').val().trim();
-    var p = $('#password').val().trim();
+    var users=getUsers(); if(!users.length){alert('No accounts found. Please sign up first.');return;}
+    var user=users.find(function(u){return u.studentId===sid && u.password===pw;});
+    if(!user){alert('Student ID or password is wrong');return;}
 
-    if (!u || !p) {
-      alert('Please fill both fields');
-      return;
-    }
-
-    var users = getUsers();
-    if (!users.length) {
-      alert('No accounts found. Please sign up first.');
-      return;
-    }
-
-    var ok = false;
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].username === u && users[i].password === p) {
-        ok = true;
-        break;
-      }
-    }
-
-    if (ok) {
-      localStorage.setItem('isLoggedIn', 'yes');
-      localStorage.setItem('loginUser', u);
-      window.location.href = 'form.html';
-    } else {
-      alert('Invalid username or password');
-    }
+    localStorage.setItem('isLoggedIn','yes');
+    localStorage.setItem('loginUser',JSON.stringify(user));
+    window.location.href='../html_files/student.html';
   });
 });

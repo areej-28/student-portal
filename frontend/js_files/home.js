@@ -38,8 +38,8 @@ $(function () {
       url: ENDPOINT,
       method: "POST",
       data: fd,
-      processData: false,       // required for FormData
-      contentType: false,       // required for FormData
+      processData: false,       
+      contentType: false,       
       headers: { "Accept": "application/json" }
     })
     .done(function () {
