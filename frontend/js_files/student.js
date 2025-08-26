@@ -7,17 +7,35 @@ function loadStudents(){ try{return JSON.parse(localStorage.getItem(STUDENTS_KEY
 function saveStudents(a){ localStorage.setItem(STUDENTS_KEY, JSON.stringify(a)); }
 
 $(function(){
-  if(localStorage.getItem('isLoggedIn')!=='yes'){ window.location.href='../html_files/login.html'; return; }
+  if(localStorage.getItem('isLoggedIn')!=='yes'){ window.location.href='./html_files/login.html'; return; }
   var user=null; try{ user=JSON.parse(localStorage.getItem('loginUser')); }catch(e){}
-  if(!user || !user.studentId){ window.location.href='../html_files/login.html'; return; }
+  if(!user || !user.studentId){ window.location.href='./html_files/login.html'; return; }
 
   var sid=user.studentId;
+  var role = user.role || ((String(sid).indexOf('ADMIN-')===0) ? 'admin' : 'student');
+
   $('#sidDisplay').text(sid);
   $('#studentId').val(sid);
 
   var students=loadStudents();
-  var mine=students.find(function(s){ return s.studentId===sid; });
 
+  if (role === 'admin') {
+    var info = {
+      studentId: sid,
+      name: user.name || '',
+      email: user.email || '',
+      age: user.age || '',
+      major: '',
+      semester: '',
+      courses: ''
+    };
+    renderMine(info);
+    $('#studentForm :input').prop('disabled', true);
+    $('#saved').addClass('d-none');
+    return; 
+  }
+
+  var mine=students.find(function(s){ return s.studentId===sid; });
   if(!mine){
     mine={ studentId:sid, name:user.name||'', email:user.email||'', age:user.age||'',
            major:'', semester:'', courses:'' };
@@ -32,7 +50,6 @@ $(function(){
   $('#courses').val(mine.courses||'');
   renderMine(mine);
 
-  
   $('#studentForm').on('submit', function(e){
     e.preventDefault();
     var rec={
@@ -49,7 +66,6 @@ $(function(){
     if(ix>=0) students[ix]=rec; else students.push(rec);
     saveStudents(students);
 
-   
     var users=getUsers();
     var ux=users.findIndex(function(u){ return u.studentId===sid; });
     if(ux>=0){ users[ux].name=rec.name; users[ux].email=rec.email; users[ux].age=rec.age; saveUsers(users); }
@@ -61,12 +77,12 @@ $(function(){
   $('#logout').on('click', function(e){
     e.preventDefault();
     localStorage.removeItem('isLoggedIn'); localStorage.removeItem('loginUser');
-    window.location.href='../html_files/login.html';
+    window.location.href='./html_files/login.html';
   });
 
   function renderMine(r){
     $('#mine').html(
-      '<div><strong>Student ID:</strong> '+r.studentId+'</div>'+
+      '<div><strong>Student ID:</strong> '+(r.studentId||'-')+'</div>'+
       '<div><strong>Name:</strong> '+(r.name||'-')+'</div>'+
       '<div><strong>Email:</strong> '+(r.email||'-')+'</div>'+
       '<div><strong>Age:</strong> '+(r.age||'-')+'</div>'+

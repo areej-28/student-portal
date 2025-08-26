@@ -6,35 +6,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About Us</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js_files/common.js"></script>
+  <script src="../js_files/check-login-service.js"></script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
 
-  <!-- Basic NavBar -->
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark"
-    style="background-image:linear-gradient(90deg,#4c1d95,#a78bfa);">
+  <!-- NavBar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm"
+       style="background-image:linear-gradient(90deg,#4c1d95,#a78bfa);">
     <div class="container">
-      <a class="navbar-brand" href="../html_files/home.html">Student Portal</a>
+      <a class="navbar-brand fw-semibold" href="../html_files/home.html">Student Portal</a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"
+        aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div id="nav" class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto">
+      <div class="collapse navbar-collapse" id="siteNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <!-- Everyone -->
           <li class="nav-item"><a class="nav-link" href="../html_files/home.html">Home</a></li>
           <li class="nav-item"><a class="nav-link active" href="../html_files/about.html">About Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="../html_files/login.html">LogIn</a></li>
-          <li class="nav-item"><a class="nav-link" href="../html_files/signup.html">SignUp</a></li>
-          <li class="nav-item"><a class="nav-link" href="../html_files/student.html">My Page</a></li>
-          <li class="nav-item"><a class="nav-link" href="../html_files/form.html">Search Students</a></li>
           <li class="nav-item"><a class="nav-link" href="../html_files/contact.html">Contact Us</a></li>
+          <li class="nav-item student-only"><a class="nav-link" href="../html_files/student.html">Student</a></li>
+          <!-- Admin only -->
+          <li class="nav-item admin-only"><a class="nav-link" href="../html_files/search.html">Search</a></li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <!-- Guest only -->
+          <li class="nav-item guest-only"><a class="nav-link" href="../html_files/login.html">Login</a></li>
+          <li class="nav-item guest-only"><a class="nav-link" href="../html_files/signup.html">Sign Up</a></li>
+          <!-- Logged-in only -->
+          <li class="nav-item auth-only">
+            <a id="logoutNav" class="nav-link logout-link" href="#">Logout</a>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <main class="flex-grow-1">
+  <main class="flex-grow-1" style="padding-top:84px;">
     <section class="container text-center my-5">
       <h2 class="mb-3">About Us</h2>
       <p class="lead">
@@ -78,16 +92,11 @@
 
   </main>
 
-  <!--Basic footer-->
   <footer class="text-center text-white py-3 fixed-bottom"
     style="background-image:linear-gradient(90deg,#4c1d95,#a78bfa);">
     <small>&copy; 2025 Student Portal | All rights reserved</small>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="../js_files/home.js"></script>
-
 </body>
-
 </html>

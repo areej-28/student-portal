@@ -24,7 +24,7 @@ $(function(){
     var users=getUsers();
     var sid; do{sid=generateStudentId();}while(users.some(function(u){return u.studentId===sid;}));
 
-    users.push({studentId:sid,name:name,email:email,age:age,password:p});
+    users.push({studentId:sid,name:name,email:email,age:age,password:p,role:'student'});
     saveUsers(users);
 
     var students=getStudents();
